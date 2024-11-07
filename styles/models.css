@@ -222,8 +222,6 @@ body {
     max-height: 600px;
     object-fit: cover;
     box-sizing: border-box;
-    border-end-end-radius: 100px;
-    border-end-start-radius: 100px;
     opacity: 50%;
 }
 
