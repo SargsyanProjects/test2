@@ -408,8 +408,8 @@ body {
 
 .entering-image {
     grid-area: image;
-    max-width: 800px;
-    min-height: 600px;
+    height: 100%;
+    width: 100%;
     border-radius: 20px;
     padding: 0;
     margin: 0;
@@ -417,9 +417,10 @@ body {
 
 .entering-image img {
     width: 100%;
-    min-height: 600px;
+    height: 100%;
     border-radius: 20px;
     object-fit: cover;
+    object-position: center;
     opacity: 80%;
     padding: 0;
     margin: 0;
@@ -427,7 +428,7 @@ body {
 
 .entering-text {
     grid-area: text;
-    max-width: 400px;
+    max-width: 600px;
     color: white;
     margin: 0 40px;
 }
@@ -449,7 +450,7 @@ body {
     color:#38C7C0;
 }
 
-@media (max-width: 776px) {
+@media (max-width: 1200px) {
     .entering-card {
         grid-template-areas: "image"
                             "text";
@@ -466,6 +467,7 @@ body {
         max-width: 100%;
     }
 }
+
 
 
 .contact-us{

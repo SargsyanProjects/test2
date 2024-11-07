@@ -504,7 +504,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    margin: 20px;
+    margin: 10px;
 }
 .contact-info-item{
     display: flex;
