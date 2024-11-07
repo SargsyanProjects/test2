@@ -216,7 +216,6 @@ body {
     min-height: 400px;
     max-height: 600px;
     width: 100%;
-    top: 0;
     box-sizing: border-box;
 }
 
@@ -226,8 +225,8 @@ body {
     max-height: 600px;
     object-fit: cover;
     box-sizing: border-box;
-    opacity: 50%;
 }
+
 
 .header-contents {
     position: absolute;
@@ -671,10 +670,6 @@ body {
 
 
 
-#video1 {
-    transition: opacity 1s ease-in-out; /* Smooth fade transition */
-    opacity: 1;  /* Start fully visible */
-}
 
 
 a{
