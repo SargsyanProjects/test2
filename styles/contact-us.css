@@ -350,7 +350,6 @@ body {
 
 .entering-image {
     width: 100%;
-    min-height: 100%;
     min-height: 400px;
     max-height: 600px;
     border-radius: 20px;
