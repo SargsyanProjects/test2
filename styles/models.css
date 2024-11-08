@@ -821,7 +821,7 @@ body {
 }
 
 /* Make the chart container responsive, but limit its max width and height */
-#chart {
+#piechart {
     width: 100%;
     height: 100%;
 }

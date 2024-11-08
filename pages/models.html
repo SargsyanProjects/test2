@@ -105,11 +105,10 @@
         <div class="expertise-cards1">
             <div class="expertise-item1" id="icon1">
                 <div class="expertise-item-icon1">
-                    <div id="chart"></div>
-
+                    <div id="piechart"></div>
                 </div>
                 <div class="expertise-item-icon1" id="icon2">
-                    <img src="../images/bullseye.svg" alt="">
+                    <div id="barchart"></div>
                 </div>
                 
                 <div class="expertise-item-text1">
@@ -181,7 +180,7 @@
 
         const { width, height, radius, innerRadius } = getDimensions();
 
-        const svg = d3.select("#chart")
+        const svg = d3.select("#piechart")
             .append("svg")
             .attr("viewBox", `0 0 ${width} ${height}`)
             .attr("preserveAspectRatio", "xMidYMid meet")
@@ -207,8 +206,8 @@
             .append("path")
             .attr("d", d3.arc().innerRadius(innerRadius).outerRadius(0)) // Start with 0 radius
             .attr("fill", d => d.data.color)
-            .style("stroke", "white")
-            .style("stroke-width", "2px");
+            .style("stroke", "#38C7C0")
+            .style("stroke-width", "1px");
 
         // Add labels with sun ray effect, positioned closer to the center and flipped on the left side
         const labels = svg.selectAll("text")
