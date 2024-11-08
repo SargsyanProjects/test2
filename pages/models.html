@@ -29,7 +29,8 @@
                             <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                             <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
                             <li class="nav-item"><a href="" class="nav-link" style="color:#38C7C0">Models</a></li>
-                            <li class="nav-item"><a href="https://www.easystat.app/" class="nav-link" target="_blank">EasyStat</a></li>
+                            <li class="nav-item"><a href="https://www.easystat.app/" class="nav-link"
+                                    target="_blank">EasyStat</a></li>
                             <button class="nav-button"><a href="contact-us.html" class="nav-link">Contact
                                     Us</a></button>
                         </ul>
@@ -108,9 +109,8 @@
                     <div id="piechart"></div>
                 </div>
                 <div class="expertise-item-icon1" id="icon2">
-                    <svg id="barchart"></svg>
                 </div>
-                
+
                 <div class="expertise-item-text1">
                     <h3>Functional Service Provider (FSP)</h3>
                     <p>Biobrain Pro’s Functional Service Provider (FSP) model offers specialized support in statistical
@@ -123,7 +123,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="contact-us">
         <h2>Bring Your Data To Life</h2>
         <a href="contact-us.html"><button>Contact Us</button></a>
@@ -215,7 +215,7 @@
             .enter()
             .append("text")
             .attr("id", d => `label-${d.data.label}`) // Unique ID for each label
-            .attr("transform", function(d) {
+            .attr("transform", function (d) {
                 const [x, y] = labelArc.centroid(d);
                 const rotation = calculateLabelRotation(d);
                 const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
@@ -236,7 +236,7 @@
             .text("") // Empty text initially
             .style("fill", "white")
             .style("font-size", "14px")
-            
+
 
         // First, animate the drawing of the paths (pie chart sections)
         paths.transition()
@@ -249,7 +249,7 @@
             .style("opacity", 1); // Fade in labels
 
         // Apply hover effect on paths after the initial animation is done
-        paths.on("mouseover", function(event, d) {
+        paths.on("mouseover", function (event, d) {
             // Increase the outer radius on hover
             d3.select(this)
                 .transition()
@@ -264,7 +264,7 @@
             label.transition()
                 .duration(200)
                 .style("font-size", "16px") // Increase font size
-                .attr("transform", function(d) {
+                .attr("transform", function (d) {
                     const [x, y] = labelArc.centroid(d);
                     const rotation = calculateLabelRotation(d);
                     const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
@@ -275,30 +275,30 @@
             const percentage = Math.round((d.data.value / d3.sum(data, d => d.value)) * 100);
             percentageText.text(`${percentage}%`)
                 .style("opacity", 1)
-                 // Make percentage visible
+            // Make percentage visible
         })
-        .on("mouseout", function(event, d) {
-            // Reset the outer radius when hover ends
-            d3.select(this)
-                .transition()
-                .duration(200)
-                .attr("d", arc); // Original outer radius
+            .on("mouseout", function (event, d) {
+                // Reset the outer radius when hover ends
+                d3.select(this)
+                    .transition()
+                    .duration(200)
+                    .attr("d", arc); // Original outer radius
 
-            // Reset the label font size and position
-            const label = d3.select(`#label-${d.data.label}`);
-            label.transition()
-                .duration(200)
-                .style("font-size", "14px") // Reset font size
-                .attr("transform", function(d) {
-                    const [x, y] = labelArc.centroid(d);
-                    const rotation = calculateLabelRotation(d);
-                    const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
-                    return `translate(${x}, ${y}) rotate(${rotation + flip})`; // Reset position
-                });
+                // Reset the label font size and position
+                const label = d3.select(`#label-${d.data.label}`);
+                label.transition()
+                    .duration(200)
+                    .style("font-size", "14px") // Reset font size
+                    .attr("transform", function (d) {
+                        const [x, y] = labelArc.centroid(d);
+                        const rotation = calculateLabelRotation(d);
+                        const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
+                        return `translate(${x}, ${y}) rotate(${rotation + flip})`; // Reset position
+                    });
 
-            // Hide the percentage text
-            percentageText.style("opacity", 0); // Hide percentage text
-        });
+                // Hide the percentage text
+                percentageText.style("opacity", 0); // Hide percentage text
+            });
 
         // Calculate rotation to make labels look like sun rays
         function calculateLabelRotation(d) {
@@ -318,7 +318,7 @@
             paths.attr("d", arc);
 
             // Recalculate and redraw the labels
-            labels.attr("transform", function(d) {
+            labels.attr("transform", function (d) {
                 const [x, y] = labelArc.centroid(d);
                 const rotation = calculateLabelRotation(d);
                 const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
@@ -326,107 +326,8 @@
             });
         });
     </script>
-    <script>
-        // Data for the chart
-        const data1 = [
-          { category: "ONCOLOGY", percent: 83 },
-          { category: "NEUROLOGY", percent: 77 },
-          { category: "HEMATOLOGY", percent: 47 },
-          { category: "OPHTHAMOLOGY", percent: 43 },
-          { category: "PSYCHOLOGY", percent: 37 },
-          { category: "CARDIOVASCULAR DISEASE", percent: 33 },
-          { category: "RESPIRATORY", percent: 30 },
-          { category: "RARE DISEASES", percent: 23 },
-          { category: "UROLOGY", percent: 20 },
-          { category: "NEUTROPENIC DISORDERS", percent: 20 },
-          { category: "IMMUNOLOGY", percent: 20 },
-          { category: "VACCINES", percent: 17 },
-          { category: "OTHER", percent: 10 }
-        ];
-      
-        const margin = { top: 20, right: 50, bottom: 20, left: 150 };
-        const width1 = 700 - margin.left - margin.right;
-        const height1 = data.length * 40;
-      
-        const svg1 = d3.select("#barchart")
-          .attr("width", width1 + margin.left + margin.right)
-          .attr("height", height1 + margin.top + margin.bottom)
-          .append("g")
-          .attr("transform", `translate(${margin.left}, ${margin.top})`);
-      
-        // Create a scale for the x-axis
-        const xScale = d3.scaleLinear()
-          .domain([0, 100])
-          .range([0, width]);
-      
-        // Create a scale for the y-axis
-        const yScale = d3.scaleBand()
-          .domain(data1.map(d => d.category))
-          .range([0, height1])
-          .padding(0.1);
-      
-        // Add the bars
-        svg1.selectAll(".bar")
-          .data(data1)
-          .enter()
-          .append("rect")
-          .attr("class", "bar")
-          .attr("x", 0)
-          .attr("y", d => yScale(d.category))
-          .attr("width", d => xScale(d.percent))
-          .attr("height", yScale.bandwidth())
-          .attr("fill", "#38C7C0");
-      
-        // Add category labels
-        svg1.selectAll(".bar-label")
-          .data(data1)
-          .enter()
-          .append("text")
-          .attr("class", "bar-label")
-          .attr("x", -10)
-          .attr("y", d => yScale(d.category) + yScale.bandwidth() / 2)
-          .attr("dy", "0.35em")
-          .attr("text-anchor", "end")
-          .text(d => d.category)
-          .style('fill', "white")
-          .style("font-size", "12px");
-      
-        // Add percentage labels
-        svg1.selectAll(".bar-percent")
-          .data(data1)
-          .enter()
-          .append("text")
-          .attr("class", "bar-percent")
-          .attr("x", d => xScale(d.percent) - 10)
-          .attr("y", d => yScale(d.category) + yScale.bandwidth() / 2)
-          .attr("dy", "0.35em")
-          .text(d => `${d.percent}%`)
-          .style('fill', "white")
-          .style("font-size", "12px");
 
 
-      
-        // Make the chart responsive
-        const resizeChart = () => {
-          const containerWidth = parseInt(d3.select("#icon2").style("width"));
-          const newWidth = containerWidth - margin.left - margin.right;
-      
-          xScale.range([0, newWidth]);
-      
-          svg1.attr("width", newWidth + margin.left + margin.right);
-      
-          svg1.selectAll(".bar")
-            .attr("width", d => xScale(d.percent));
-      
-          svg1.selectAll(".bar-percent")
-            .attr("x", d => xScale(d.percent) - 30);
-        };
-      
-        // Listen for window resize events
-        window.addEventListener("resize", resizeChart);
-        resizeChart();  // Call it initially
-      </script>
-      
     <script src="../srcipt.js"></script>
 </body>
 

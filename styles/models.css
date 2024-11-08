@@ -773,7 +773,6 @@ body {
     justify-content: center;
     margin: 10px 30px;
     border-radius: 20px;
-    min-height: 500px;
 }
 
 .expertise-item-text1{
@@ -831,10 +830,5 @@ svg {
     width: 100%;
     height: 100%;
     padding: 0;
-}
-
-
-#barchart{
-    width: 100%;
-    height: 100%;
+    border-color: #38C7C0;
 }
