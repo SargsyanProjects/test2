@@ -509,6 +509,9 @@ body {
     color: white;
 }
 
+.expertise h2{
+    text-align: center;
+}
 
 .expertise-cards{
     display: flex;

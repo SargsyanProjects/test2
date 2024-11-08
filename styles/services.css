@@ -347,6 +347,7 @@ body {
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+    padding: 0;
 }
 
 .section-items a {
@@ -510,6 +511,10 @@ body {
     color: white;
 }
 
+
+.expertise h2{
+    text-align: center;
+}
 
 .expertise-cards{
     display: flex;

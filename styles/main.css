@@ -352,6 +352,7 @@ body {
     justify-content: center;
     box-sizing: border-box;
     margin: 0 auto;
+    padding: 0;
 }
 
 .section-item {
@@ -360,9 +361,8 @@ body {
     align-items: center;
     background-color: #38C7C0;
     min-width: 200px;
-    margin: 10px 20px;
+    margin: 20px;
     padding: 10px 0px;
-
     color: white;
     font-weight: light;
     box-sizing: border-box;
@@ -380,7 +380,7 @@ body {
 
 @media (max-width: 991px) {
     .section-item {
-        margin: 10px;
+        margin: 10px 0px;
         width: 100%;
     }
     .section-items{
