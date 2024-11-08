@@ -170,9 +170,9 @@
 
         // Function to calculate the width, height, and radius dynamically
         function getDimensions() {
-            const width = Math.min(window.innerWidth * 0.8, 400);  // 80% of the window width, but limited to 400px
-            const height = Math.min(window.innerHeight * 0.6, 400);  // 60% of the window height, but limited to 400px
-            const margin = 40;
+            const width = Math.min(window.innerWidth, 400);  // 80% of the window width, but limited to 400px
+            const height = Math.min(window.innerHeight, 400);  // 60% of the window height, but limited to 400px
+            const margin = 20;
 
             const radius = Math.min(width, height) / 2 - margin;
             const innerRadius = radius * 0.35 * (width / 1200); // Dynamically scale inner radius based on screen width
@@ -197,8 +197,8 @@
             .outerRadius(radius);
 
         const labelArc = d3.arc()
-        .innerRadius(radius * 0.3 )  // Adjust this value to move the labels closer to the center
-        .outerRadius(radius * 0.75); // You can keep this the same or adjust if needed
+        .innerRadius(radius * 0.6 )  // Adjust this value to move the labels closer to the center
+        .outerRadius(radius * 0.5); // You can keep this the same or adjust if needed
 
         // Draw pie chart with animation (from 0 to full size)
         const paths = svg.selectAll("path")
@@ -254,7 +254,7 @@
             const label = d3.select(`#label-${d.data.label}`);
             label.transition()
                 .duration(200)
-                .style("font-size", "16px")  // Increase font size
+                .style("font-size", "14px")  // Increase font size
                 .attr("transform", function(d) {
                     const [x, y] = labelArc.centroid(d);
                     const rotation = calculateLabelRotation(d);
