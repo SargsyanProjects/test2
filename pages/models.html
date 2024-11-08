@@ -157,15 +157,15 @@
 
     <script>
         const data = [
-            { label: "Ophthalmology", value: 30, color: "#4CAF50" },
-            { label: "Neurology", value: 20, color: "#FF9800" },
-            { label: "Oncology", value: 15, color: "#9E9E9E" },
-            { label: "Hematology", value: 10, color: "#2196F3" },
-            { label: "Respiratory", value: 15, color: "#FFEB3B" },
-            { label: "Psychiatry", value: 10, color: "#8BC34A" },
-            { label: "Vaccine", value: 5, color: "#00BCD4" },
-            { label: "Endocrinology", value: 7, color: "#795548" },
-            { label: "Cardiovascular", value: 8, color: "#5D4037" }
+            { label: "Ophthalmology", value: 30, color: "#00AF50" },
+            { label: "Neurology", value: 20, color: "#ED7D31" },
+            { label: "Oncology", value: 15, color: "#A5A5A5" },
+            { label: "Hematology", value: 10, color: "#8FABDD" },
+            { label: "Respiratory", value: 15, color: "#FFC000" },
+            { label: "Psychiatry", value: 10, color: "#92D14F" },
+            { label: "Vaccine", value: 5, color: "#B5C6E3" },
+            { label: "Endocrinology", value: 7, color: "#636363" },
+            { label: "Cardiovascular", value: 8, color: "#A0460E" }
         ];
 
         // Function to calculate the width, height, and radius dynamically
@@ -175,7 +175,7 @@
             const margin = 20;
 
             const radius = Math.min(width, height) / 2 - margin;
-            const innerRadius = radius * 0.35 * (width / 1200); // Dynamically scale inner radius based on screen width
+            const innerRadius = radius * 0.55 * (width / 1200); // Dynamically scale inner radius based on screen width
             return { width, height, radius, innerRadius };
         }
 
@@ -197,7 +197,7 @@
             .outerRadius(radius);
 
         const labelArc = d3.arc()
-            .innerRadius(radius * 0.6) // Adjust this value to move the labels closer to the center
+            .innerRadius(radius * 0.5) // Adjust this value to move the labels closer to the center
             .outerRadius(radius * 0.5);
 
         // Draw pie chart with animation (from 0 to full size)
@@ -224,7 +224,7 @@
             })
             .attr("dy", "0.35em")
             .attr("class", "label")
-            .style("font-size", "10px")
+            .style("font-size", "12px")
             .style("fill", "white") // Adjust color for readability
             .text(d => d.data.label)
             .style("opacity", 0); // Start with zero opacity
@@ -232,11 +232,11 @@
         // Add percentage label in the center
         const percentageText = svg.append("text")
             .attr("class", "percentage")
-            .attr("transform", "translate(-7, 6)")
+            .attr("transform", "translate(-6, 5)")
             .style("opacity", 0) // Start with hidden
             .text("") // Empty text initially
             .style("fill", "white")
-            .style("font-size", "10px")
+            .style("font-size", "12px")
             
 
         // First, animate the drawing of the paths (pie chart sections)
