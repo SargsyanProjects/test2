@@ -99,8 +99,32 @@
                 </div>
             </div>
         </div>
-
     </div>
+    <div class="expertise1">
+        <h2>BioBrain Pro Tailored Outsourcing Models</h2>
+        <div class="expertise-cards1">
+            <div class="expertise-item1" id="icon1">
+                <div class="expertise-item-icon1">
+                    <div id="chart"></div>
+
+                </div>
+                <div class="expertise-item-icon1" id="icon2">
+                    <img src="../images/bullseye.svg" alt="">
+                </div>
+                
+                <div class="expertise-item-text1">
+                    <h3>Functional Service Provider (FSP)</h3>
+                    <p>Biobrain Pro’s Functional Service Provider (FSP) model offers specialized support in statistical
+                        programming, data management, and biostatistics, seamlessly integrating with your team. We
+                        provide scalable resources, cost efficiency, regulatory compliance, and expert knowledge to
+                        enhance clinical research outcomes.</p>
+                    <a href="FSP.html">Find Out More →</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class="contact-us">
         <h2>Bring Your Data To Life</h2>
         <a href="contact-us.html"><button>Contact Us</button></a>
@@ -128,6 +152,164 @@
             <img src="../images/Bio Brain horizontal.svg" alt="">
         </div>
     </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <script>
+        const data = [
+            { label: "Ophthalmology", value: 30, color: "#4CAF50" },
+            { label: "Neurology", value: 20, color: "#FF9800" },
+            { label: "Oncology", value: 15, color: "#9E9E9E" },
+            { label: "Hematology", value: 10, color: "#2196F3" },
+            { label: "Respiratory", value: 15, color: "#FFEB3B" },
+            { label: "Psychiatry", value: 10, color: "#8BC34A" },
+            { label: "Vaccine", value: 5, color: "#00BCD4" },
+            { label: "Endocrinology", value: 7, color: "#795548" },
+            { label: "Cardiovascular", value: 8, color: "#5D4037" }
+        ];
+
+        // Function to calculate the width, height, and radius dynamically
+        function getDimensions() {
+            const width = Math.min(window.innerWidth * 0.8, 400);  // 80% of the window width, but limited to 400px
+            const height = Math.min(window.innerHeight * 0.6, 400);  // 60% of the window height, but limited to 400px
+            const margin = 40;
+
+            const radius = Math.min(width, height) / 2 - margin;
+            const innerRadius = radius * 0.35 * (width / 1200); // Dynamically scale inner radius based on screen width
+            return { width, height, radius, innerRadius };
+        }
+
+        const { width, height, radius, innerRadius } = getDimensions();
+
+        const svg = d3.select("#chart")
+            .append("svg")
+            .attr("viewBox", `0 0 ${width} ${height}`)
+            .attr("preserveAspectRatio", "xMidYMid meet")
+            .append("g")
+            .attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+        const pie = d3.pie()
+            .value(d => d.value)
+            .sort(null);
+
+        const arc = d3.arc()
+            .innerRadius(innerRadius)
+            .outerRadius(radius);
+
+        const labelArc = d3.arc()
+        .innerRadius(radius * 0.6)  // Adjust this value to move the labels closer to the center
+    .outerRadius(radius * 0.75); // You can keep this the same or adjust if needed
+
+        // Draw pie chart with animation (from 0 to full size)
+        const paths = svg.selectAll("path")
+            .data(pie(data))
+            .enter()
+            .append("path")
+            .attr("d", d3.arc().innerRadius(innerRadius).outerRadius(0)) // Start with 0 radius
+            .attr("fill", d => d.data.color)
+            .style("stroke", "white")
+            .style("stroke-width", "2px");
+
+        // Add labels with sun ray effect, positioned closer to the center and flipped on the left side
+        const labels = svg.selectAll("text")
+            .data(pie(data))
+            .enter()
+            .append("text")
+            .attr("id", d => `label-${d.data.label}`) // Unique ID for each label
+            .attr("transform", function(d) {
+                const [x, y] = labelArc.centroid(d);
+                const rotation = calculateLabelRotation(d);
+                const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
+                return `translate(${x}, ${y}) rotate(${rotation + flip})`;
+            })
+            .attr("dy", "0.35em")
+            .attr("class", "label")
+            .style("font-size", "12px")
+            .style("fill", "white")  // Adjust color for readability
+            .text(d => d.data.label)
+            .style("opacity", 0); // Start with zero opacity
+
+        // First, animate the drawing of the paths (pie chart sections)
+        paths.transition()
+            .duration(1000) // Animate drawing over 1 second
+            .attr("d", arc);  // Full arc after animation
+
+        // After the animation is done, make the labels visible
+        labels.transition()
+            .duration(1500) // Fade in labels over 1.5 seconds
+            .style("opacity", 1);  // Fade in labels
+
+        // Apply hover effect on paths after the initial animation is done
+        paths.on("mouseover", function(event, d) {
+            // Increase the outer radius on hover
+            d3.select(this)
+                .transition()
+                .duration(200)
+                .attr("d", d3.arc()
+                    .innerRadius(innerRadius)
+                    .outerRadius(radius + 10)  // Increased outer radius
+                );
+
+            // Increase the label font size and move the label
+            const label = d3.select(`#label-${d.data.label}`);
+            label.transition()
+                .duration(200)
+                .style("font-size", "16px")  // Increase font size
+                .attr("transform", function(d) {
+                    const [x, y] = labelArc.centroid(d);
+                    const rotation = calculateLabelRotation(d);
+                    const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
+                    return `translate(${x}, ${y - 5}) rotate(${rotation + flip})`;  // Move text slightly up
+                });
+        })
+        .on("mouseout", function(event, d) {
+            // Reset the outer radius when hover ends
+            d3.select(this)
+                .transition()
+                .duration(200)
+                .attr("d", arc);  // Original outer radius
+
+            // Reset the label font size and position
+            const label = d3.select(`#label-${d.data.label}`);
+            label.transition()
+                .duration(200)
+                .style("font-size", "12px")  // Reset font size
+                .attr("transform", function(d) {
+                    const [x, y] = labelArc.centroid(d);
+                    const rotation = calculateLabelRotation(d);
+                    const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
+                    return `translate(${x}, ${y}) rotate(${rotation + flip})`;  // Reset position
+                });
+        });
+
+        // Calculate rotation to make labels look like sun rays
+        function calculateLabelRotation(d) {
+            const angle = (d.startAngle + d.endAngle) / 2;
+            return (angle * 180 / Math.PI - 90);
+        }
+
+        // Make the chart responsive to window resizing
+        window.addEventListener('resize', () => {
+            const { width, height, radius, innerRadius } = getDimensions();
+
+            svg.attr("viewBox", `0 0 ${width} ${height}`);  // Update the viewBox on resize
+
+            arc.innerRadius(innerRadius).outerRadius(radius);
+            labelArc.innerRadius(radius * 0.75).outerRadius(radius * 0.75);
+
+            // Recalculate and redraw the pie chart sections
+            paths.attr("d", arc);
+
+            // Recalculate and redraw the labels
+            labels.attr("transform", function(d) {
+                const [x, y] = labelArc.centroid(d);
+                const rotation = calculateLabelRotation(d);
+                const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
+                return `translate(${x}, ${y}) rotate(${rotation + flip})`;
+            });
+        });
+    </script>
+
     <script src="../srcipt.js"></script>
 </body>
 

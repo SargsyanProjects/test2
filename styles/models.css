@@ -573,6 +573,18 @@ body {
 }
 
 
+.expertise-item a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;;
+}
+.expertise-item a:hover{
+    text-decoration: underline;
+}
+
+
+
 @media (max-width: 776px){
     .expertise-item{
         grid-template-areas: "icon"
@@ -685,12 +697,138 @@ body {
 }
 
 
-.expertise-item a{
+
+
+
+.expertise1{
+    display: flex;
+    flex-direction: column;
+    grid-template-areas: "text image";
+    align-items: center;
+    justify-content: center;
+    background-color: #051D38;
+    height: 100%;
+    margin: 40px 5%;
+    padding: 0;
+    border-radius: 20px;
+    color: white;
+    text-align: center  ;
+}
+
+.expertise1 h2{
+    text-align: center;
+}
+
+.expertise-cards1{
+    display: flex;
+    flex-direction: column;
+    grid-template-areas: "text image";
+    align-items: center;
+    justify-content: center;
+    background-color: #051D38;
+    height: 100%;
+    margin: 40px 5%;
+    padding: 0;
+    border-radius: 20px;
+    color: white;
+}
+
+.expertise-item1{
+    display: grid;
+    grid-template-areas: "icon1 icon2"
+                        "text text";
+    height: 100%;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    max-width: 100%;
+    bordeR: 1px solid #38C7C0
+}
+
+.expertise-item1 h3{
+    font-weight: lighter;
+}
+
+.expertise1 button{
+    padding: 10px 35px;
+    background-color: #38C7C0;
+    color: white;
+    font-size: 18px;
+    border: none;
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    margin: 40px 0;
+
+}
+
+.expertise1 button:hover{
+    background-color: white;
+    color: #38C7C0;
+}
+
+
+.expertise-item-icon1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 30px;
+    min-height: 300px;
+}
+
+.expertise-item-text1{
+    grid-area: text;
+}
+
+
+@media (max-width: 776px){
+    .expertise-item1{
+        grid-template-areas: "icon1" 
+                            "icon2"
+                            "text";
+    }
+    .expertise-item-icon1{
+        min-height: 200px;
+    }
+}
+
+#icon1{
+    grid-area: icon1;
+}
+
+#icon2{
+    grid-area: icon2;
+}
+
+
+.expertise-item1 a{
     text-decoration: none;
     color: white;
     font-weight: bold;
     font-size: 20px;;
 }
-.expertise-item a:hover{
+.expertise-item1 a:hover{
     text-decoration: underline;
+}
+
+
+.label {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    fill: white;
+    text-anchor: middle;
+    transition: font-size 0.2s, transform 0.2s; /* Transition for font size and movement */
+}
+
+/* Make the chart container responsive, but limit its max width and height */
+#chart {
+    width: 100%;
+    height: 100%;
+    max-width: 400px; /* Set max width */
+    max-height: 400px; /* Set max height */
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+    padding: 0;
 }
