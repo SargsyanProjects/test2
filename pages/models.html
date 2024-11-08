@@ -224,7 +224,7 @@
             })
             .attr("dy", "0.35em")
             .attr("class", "label")
-            .style("font-size", "12px")
+            .style("font-size", "14px")
             .style("fill", "white") // Adjust color for readability
             .text(d => d.data.label)
             .style("opacity", 0); // Start with zero opacity
@@ -264,7 +264,7 @@
             const label = d3.select(`#label-${d.data.label}`);
             label.transition()
                 .duration(200)
-                .style("font-size", "14px") // Increase font size
+                .style("font-size", "16px") // Increase font size
                 .attr("transform", function(d) {
                     const [x, y] = labelArc.centroid(d);
                     const rotation = calculateLabelRotation(d);
@@ -289,7 +289,7 @@
             const label = d3.select(`#label-${d.data.label}`);
             label.transition()
                 .duration(200)
-                .style("font-size", "12px") // Reset font size
+                .style("font-size", "14px") // Reset font size
                 .attr("transform", function(d) {
                     const [x, y] = labelArc.centroid(d);
                     const rotation = calculateLabelRotation(d);
