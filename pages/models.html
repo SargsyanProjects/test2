@@ -295,7 +295,7 @@
             svg.attr("viewBox", `0 0 ${width} ${height}`);  // Update the viewBox on resize
 
             arc.innerRadius(innerRadius).outerRadius(radius);
-            labelArc.innerRadius(radius * 0.75).outerRadius(radius * 0.75);
+            // labelArc.innerRadius(radius * 0.75).outerRadius(radius * 0.75);
 
             // Recalculate and redraw the pie chart sections
             paths.attr("d", arc);
