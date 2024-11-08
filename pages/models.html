@@ -108,7 +108,7 @@
                     <div id="piechart"></div>
                 </div>
                 <div class="expertise-item-icon1" id="icon2">
-                    <div id="barchart"></div>
+                    <svg id="barchart"></svg>
                 </div>
                 
                 <div class="expertise-item-text1">
@@ -207,7 +207,7 @@
             .attr("d", d3.arc().innerRadius(innerRadius).outerRadius(0)) // Start with 0 radius
             .attr("fill", d => d.data.color)
             .style("stroke", "#38C7C0")
-            .style("stroke-width", "1px");
+            .style("stroke-width", "1x");
 
         // Add labels with sun ray effect, positioned closer to the center and flipped on the left side
         const labels = svg.selectAll("text")
@@ -326,7 +326,107 @@
             });
         });
     </script>
+    <script>
+        // Data for the chart
+        const data1 = [
+          { category: "ONCOLOGY", percent: 83 },
+          { category: "NEUROLOGY", percent: 77 },
+          { category: "HEMATOLOGY", percent: 47 },
+          { category: "OPHTHAMOLOGY", percent: 43 },
+          { category: "PSYCHOLOGY", percent: 37 },
+          { category: "CARDIOVASCULAR DISEASE", percent: 33 },
+          { category: "RESPIRATORY", percent: 30 },
+          { category: "RARE DISEASES", percent: 23 },
+          { category: "UROLOGY", percent: 20 },
+          { category: "NEUTROPENIC DISORDERS", percent: 20 },
+          { category: "IMMUNOLOGY", percent: 20 },
+          { category: "VACCINES", percent: 17 },
+          { category: "OTHER", percent: 10 }
+        ];
+      
+        const margin = { top: 20, right: 50, bottom: 20, left: 150 };
+        const width1 = 700 - margin.left - margin.right;
+        const height1 = data.length * 40;
+      
+        const svg1 = d3.select("#barchart")
+          .attr("width", width1 + margin.left + margin.right)
+          .attr("height", height1 + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform", `translate(${margin.left}, ${margin.top})`);
+      
+        // Create a scale for the x-axis
+        const xScale = d3.scaleLinear()
+          .domain([0, 100])
+          .range([0, width]);
+      
+        // Create a scale for the y-axis
+        const yScale = d3.scaleBand()
+          .domain(data1.map(d => d.category))
+          .range([0, height1])
+          .padding(0.1);
+      
+        // Add the bars
+        svg1.selectAll(".bar")
+          .data(data1)
+          .enter()
+          .append("rect")
+          .attr("class", "bar")
+          .attr("x", 0)
+          .attr("y", d => yScale(d.category))
+          .attr("width", d => xScale(d.percent))
+          .attr("height", yScale.bandwidth())
+          .attr("fill", "#38C7C0");
+      
+        // Add category labels
+        svg1.selectAll(".bar-label")
+          .data(data1)
+          .enter()
+          .append("text")
+          .attr("class", "bar-label")
+          .attr("x", -10)
+          .attr("y", d => yScale(d.category) + yScale.bandwidth() / 2)
+          .attr("dy", "0.35em")
+          .attr("text-anchor", "end")
+          .text(d => d.category)
+          .style('fill', "white")
+          .style("font-size", "12px");
+      
+        // Add percentage labels
+        svg1.selectAll(".bar-percent")
+          .data(data1)
+          .enter()
+          .append("text")
+          .attr("class", "bar-percent")
+          .attr("x", d => xScale(d.percent) - 10)
+          .attr("y", d => yScale(d.category) + yScale.bandwidth() / 2)
+          .attr("dy", "0.35em")
+          .text(d => `${d.percent}%`)
+          .style('fill', "white")
+          .style("font-size", "12px");
 
+
+      
+        // Make the chart responsive
+        const resizeChart = () => {
+          const containerWidth = parseInt(d3.select("#icon2").style("width"));
+          const newWidth = containerWidth - margin.left - margin.right;
+      
+          xScale.range([0, newWidth]);
+      
+          svg1.attr("width", newWidth + margin.left + margin.right);
+      
+          svg1.selectAll(".bar")
+            .attr("width", d => xScale(d.percent));
+      
+          svg1.selectAll(".bar-percent")
+            .attr("x", d => xScale(d.percent) - 30);
+        };
+      
+        // Listen for window resize events
+        window.addEventListener("resize", resizeChart);
+        resizeChart();  // Call it initially
+      </script>
+      
     <script src="../srcipt.js"></script>
 </body>
 
