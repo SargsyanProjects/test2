@@ -280,11 +280,11 @@
         // Function to calculate the width, height, and radius dynamically
         function getDimensions() {
             const width = Math.min(window.innerWidth, 400);  
-            const height = Math.max(Math.min(window.innerHeight, 400), 400); // Ensure a minimum height of 400px
-            const margin = 20;
+            const height = Math.min(window.innerHeight, 400) // Ensure a minimum height of 400px
+            const margin = 15;
     
             const radius = Math.min(width, height) / 2 - margin;
-            const innerRadius = radius * 0.9 * (width / 1200); 
+            const innerRadius = radius * 0.7 * (width / 1200); 
             return { width, height, radius, innerRadius };
         }
     
@@ -294,6 +294,7 @@
             .append("svg")
             .attr("viewBox", `0 0 ${width} ${height}`)
             .attr("preserveAspectRatio", "xMidYMid meet")
+
             .style("min-height", "400px") // Minimum height set to 400px
             .append("g")
             .attr("transform", `translate(${width / 2}, ${height / 2})`);
@@ -307,7 +308,7 @@
             .outerRadius(radius);
     
         const labelArc = d3.arc()
-            .innerRadius(radius * 0.2)
+            .innerRadius(radius * 0.15)
             .outerRadius(radius);
     
         const paths = svg.selectAll("path")
