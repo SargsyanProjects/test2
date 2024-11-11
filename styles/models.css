@@ -840,7 +840,7 @@ svg {
     width: 100%;
     max-width: 400px;
     height: 100%;
-    margin: 40px auto;
+    margin: 10px;
     background-color: gray;
     padding: 10px;
     box-sizing: border-box;
@@ -882,4 +882,9 @@ svg {
 #icon-item1{
     display: flex;
     flex-direction: column;
+}
+
+#icon-item1 h3{
+    margin: 0;
+    padding: 0;
 }
