@@ -704,12 +704,12 @@ body {
     display: flex;
     flex-direction: column;
     grid-template-areas: "text image";
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
     background-color: #051D38;
     height: 100%;
     margin: 40px 5%;
-    padding: 0;
+    padding: 10px;
     border-radius: 20px;
     color: white;
     text-align: center  ;
