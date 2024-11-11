@@ -817,7 +817,7 @@ body {
     font-size: 10px;
     fill: white;
     text-anchor: middle;
-    transition: font-size 0.2s, transform 0.2s; /* Transition for font size and movement */
+    transition: font-size 0.2s; /* Transition for font size and movement */
 }
 
 /* Make the chart container responsive, but limit its max width and height */
