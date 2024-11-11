@@ -779,7 +779,8 @@ body {
         margin: 10px;
     }
 }
-@media (min-width: 776px){
+@media (min-width: 776px)
+{
     .expertise-item1{
         display: grid;
         grid-template-areas: "icon1 icon2" 
@@ -799,7 +800,16 @@ body {
 }
 
 
-
+@media (orientation:landscape) and (max-width: 1000px) {
+    .expertise-item1{
+        display: flex;
+        flex-direction: column;
+    }
+    .expertise-item-icon1{
+        min-height: 200px;
+        margin: 10px;
+    }
+}
 
 .expertise-item1 a{
     text-decoration: none;
@@ -883,7 +893,7 @@ svg {
     flex-direction: column;
 }
 
-#icon-item1 h3{
+ h3{
     margin: 0;
     padding: 0;
 }
