@@ -196,8 +196,8 @@
             .outerRadius(radius);
 
         const labelArc = d3.arc()
-            .innerRadius(radius * 0.8) // Adjust this value to move the labels closer to the center
-            .outerRadius(radius * 0.5);
+            .innerRadius(radius * 0.3) // Adjust this value to move the labels closer to the center
+            .outerRadius(radius);
 
         // Draw pie chart with animation (from 0 to full size)
         const paths = svg.selectAll("path")
