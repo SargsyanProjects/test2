@@ -171,7 +171,7 @@
         function getDimensions() {
             const width = Math.min(window.innerWidth, 400);  // 80% of the window width, but limited to 400px
             const height = Math.min(window.innerHeight, 400);  // 60% of the window height, but limited to 400px
-            const margin = 30;
+            const margin = 40;
 
             const radius = Math.min(width, height) / 2 - margin;
             const innerRadius = radius  * 0.9 * (width / 1200); // Dynamically scale inner radius based on screen width
@@ -196,8 +196,8 @@
             .outerRadius(radius);
 
         const labelArc = d3.arc()
-            .innerRadius(radius * 0.45) // Adjust this value to move the labels closer to the center
-            .outerRadius(radius);
+            .innerRadius(radius * 0.2) // Adjust this value to move the labels closer to the center
+            .outerRadius(radius * 1.1);
 
         // Draw pie chart with animation (from 0 to full size)
         const paths = svg.selectAll("path")
