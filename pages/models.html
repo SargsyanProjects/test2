@@ -276,55 +276,54 @@
             { label: "Endocrinology", value: 7, color: "#636363" },
             { label: "Cardiovascular", value: 8, color: "#A0460E" }
         ];
-
+    
         // Function to calculate the width, height, and radius dynamically
         function getDimensions() {
-            const width = Math.min(window.innerWidth, 400);  // 80% of the window width, but limited to 400px
-            const height = Math.min(window.innerHeight, 400);  // 60% of the window height, but limited to 400px
+            const width = Math.min(window.innerWidth, 400);  
+            const height = Math.max(Math.min(window.innerHeight, 400), 400); // Ensure a minimum height of 400px
             const margin = 20;
-
+    
             const radius = Math.min(width, height) / 2 - margin;
-            const innerRadius = radius * 0.9 * (width / 1200); // Dynamically scale inner radius based on screen width
+            const innerRadius = radius * 0.9 * (width / 1200); 
             return { width, height, radius, innerRadius };
         }
-
+    
         const { width, height, radius, innerRadius } = getDimensions();
-
+    
         const svg = d3.select("#piechart")
             .append("svg")
             .attr("viewBox", `0 0 ${width} ${height}`)
             .attr("preserveAspectRatio", "xMidYMid meet")
+            .style("min-height", "400px") // Minimum height set to 400px
             .append("g")
             .attr("transform", `translate(${width / 2}, ${height / 2})`);
-
+    
         const pie = d3.pie()
             .value(d => d.value)
             .sort(null);
-
+    
         const arc = d3.arc()
             .innerRadius(innerRadius)
             .outerRadius(radius);
-
+    
         const labelArc = d3.arc()
-            .innerRadius(radius * 0.2) // Adjust this value to move the labels closer to the center
+            .innerRadius(radius * 0.2)
             .outerRadius(radius);
-
-        // Draw pie chart with animation (from 0 to full size)
+    
         const paths = svg.selectAll("path")
             .data(pie(data))
             .enter()
             .append("path")
-            .attr("d", d3.arc().innerRadius(innerRadius).outerRadius(0)) // Start with 0 radius
+            .attr("d", d3.arc().innerRadius(innerRadius).outerRadius(0))
             .attr("fill", d => d.data.color)
             .style("stroke", "#38C7C0")
-            .style("stroke-width", "1x");
-
-        // Add labels with sun ray effect, positioned closer to the center and flipped on the left side
+            .style("stroke-width", "1px");
+    
         const labels = svg.selectAll("text")
             .data(pie(data))
             .enter()
             .append("text")
-            .attr("id", d => `label-${d.data.label}`) // Unique ID for each label
+            .attr("id", d => `label-${d.data.label}`)
             .attr("transform", function (d) {
                 const [x, y] = labelArc.centroid(d);
                 const rotation = calculateLabelRotation(d);
@@ -334,100 +333,84 @@
             .attr("dy", "0.35em")
             .attr("class", "label")
             .style("font-size", "14px")
-            .style("fill", "white") // Adjust color for readability
+            .style("fill", "white")
             .text(d => d.data.label)
-            .style("opacity", 0); // Start with zero opacity
-
-        // Add percentage label in the center
+            .style("opacity", 0);
+    
         const percentageText = svg.append("text")
             .attr("class", "percentage")
             .attr("transform", "translate(-9, 5)")
-            .style("opacity", 0) // Start with hidden
-            .text("") // Empty text initially
+            .style("opacity", 0)
+            .text("")
             .style("fill", "white")
-            .style("font-size", "18px")
-
-
-        // First, animate the drawing of the paths (pie chart sections)
+            .style("font-size", "18px");
+    
         paths.transition()
-            .duration(1000) // Animate drawing over 1 second
-            .attr("d", arc); // Full arc after animation
-
-        // After the animation is done, make the labels visible
+            .duration(1000)
+            .attr("d", arc);
+    
         labels.transition()
-            .duration(1500) // Fade in labels over 1.5 seconds
-            .style("opacity", 1); // Fade in labels
-
-        // Apply hover effect on paths after the initial animation is done
+            .duration(1500)
+            .style("opacity", 1);
+    
         paths.on("mouseover", function (event, d) {
-            // Increase the outer radius on hover
             d3.select(this)
                 .transition()
                 .duration(200)
                 .attr("d", d3.arc()
                     .innerRadius(innerRadius)
-                    .outerRadius(radius + 10)  // Increased outer radius
+                    .outerRadius(radius + 10)
                 );
-
-            // Increase the label font size and move the label
+    
             const label = d3.select(`#label-${d.data.label}`);
             label.transition()
                 .duration(200)
-                .style("font-size", "16px") // Increase font size
+                .style("font-size", "16px")
                 .attr("transform", function (d) {
                     const [x, y] = labelArc.centroid(d);
                     const rotation = calculateLabelRotation(d);
                     const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
-                    return `translate(${x}, ${y - 5}) rotate(${rotation + flip})`; // Move text slightly up
+                    return `translate(${x}, ${y - 5}) rotate(${rotation + flip})`;
                 });
-
-            // Display the percentage in the center
+    
             const percentage = Math.round((d.data.value / d3.sum(data, d => d.value)) * 100);
             percentageText.text(`${percentage}%`)
-                .style("opacity", 1)
-            // Make percentage visible
+                .style("opacity", 1);
         })
-            .on("mouseout", function (event, d) {
-                // Reset the outer radius when hover ends
-                d3.select(this)
-                    .transition()
-                    .duration(200)
-                    .attr("d", arc); // Original outer radius
-
-                // Reset the label font size and position
-                const label = d3.select(`#label-${d.data.label}`);
-                label.transition()
-                    .duration(200)
-                    .style("font-size", "14px") // Reset font size
-                    .attr("transform", function (d) {
-                        const [x, y] = labelArc.centroid(d);
-                        const rotation = calculateLabelRotation(d);
-                        const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
-                        return `translate(${x}, ${y}) rotate(${rotation + flip})`; // Reset position
-                    });
-
-                // Hide the percentage text
-                percentageText.style("opacity", 0); // Hide percentage text
-            });
-
-        // Calculate rotation to make labels look like sun rays
+        .on("mouseout", function (event, d) {
+            d3.select(this)
+                .transition()
+                .duration(200)
+                .attr("d", arc);
+    
+            const label = d3.select(`#label-${d.data.label}`);
+            label.transition()
+                .duration(200)
+                .style("font-size", "14px")
+                .attr("transform", function (d) {
+                    const [x, y] = labelArc.centroid(d);
+                    const rotation = calculateLabelRotation(d);
+                    const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
+                    return `translate(${x}, ${y}) rotate(${rotation + flip})`;
+                });
+    
+            percentageText.style("opacity", 0);
+        });
+    
         function calculateLabelRotation(d) {
             const angle = (d.startAngle + d.endAngle) / 2;
             return (angle * 180 / Math.PI - 90);
         }
-
-        // Make the chart responsive to window resizing
+    
         window.addEventListener('resize', () => {
             const { width, height, radius, innerRadius } = getDimensions();
-
-            svg.attr("viewBox", `0 0 ${width} ${height}`); // Update the viewBox on resize
-
+    
+            svg.attr("viewBox", `0 0 ${width} ${height}`); 
+    
             arc.innerRadius(innerRadius).outerRadius(radius);
-
-            // Recalculate and redraw the pie chart sections
+    
             paths.attr("d", arc);
-
-            // Recalculate and redraw the labels
+    
             labels.attr("transform", function (d) {
                 const [x, y] = labelArc.centroid(d);
                 const rotation = calculateLabelRotation(d);
@@ -436,6 +419,7 @@
             });
         });
     </script>
+    
 
 
     <script src="../srcipt.js"></script>
