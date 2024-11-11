@@ -776,6 +776,7 @@ body {
 }
 
 .expertise-item-text1{
+    margin: 20px;
     grid-area: text;
 }
 
