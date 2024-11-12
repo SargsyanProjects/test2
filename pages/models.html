@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../styles/models.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
@@ -124,7 +123,7 @@
                         <div class="bar-name">
                             <p>Neurology</p>
                         </div>
-                        <div class="bar" style="width:66%; background-color: #33B29B;">
+                        <div class="bar" style="width:77%; background-color: #33B29B;">
                             <p>77%</p>
                         </div>
                     </div>
@@ -277,7 +276,7 @@
         // Function to calculate the width, height, and radius dynamically
         function getDimensions() {
             const width = Math.min(window.innerWidth, 400);
-            const height = Math.max(Math.min(window.innerHeight, 400), 400); // Ensure a minimum height of 400px
+            const height = Math.max(Math.min(window.innerHeight, 200), 400); // Ensure a minimum height of 400px
             const margin = 20;
 
             const radius = Math.min(width, height) / 2 - margin;
@@ -291,7 +290,7 @@
             .append("svg")
             .attr("viewBox", `0 0 ${width} ${height}`)
             .attr("preserveAspectRatio", "xMidYMid meet")
-            .style("min-height", "400px") // Minimum height set to 400px
+            .style("min-height", "200px") // Minimum height set to 400px
             .append("g")
             .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
