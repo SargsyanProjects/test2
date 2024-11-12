@@ -862,7 +862,7 @@ svg {
     align-items: baseline;  
     height: 100%;
     width: 100%;
-    min-height: 20px;
+    min-height: 30px;
     max-height: 30px;
     margin: 25px 0;
 
@@ -898,8 +898,8 @@ svg {
 }
 
 .bar-name{
-    min-width: 120px;
-    max-width: 120px;
+    min-width: 140px;
+    max-width: 140px;
 }
 
 .bar-name{
