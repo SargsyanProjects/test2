@@ -864,7 +864,7 @@ svg {
     width: 100%;
     min-height: 20px;
     max-height: 30px;
-    margin: 15px 0;
+    margin: 25px 0;
 
 }
 
@@ -881,7 +881,6 @@ svg {
     background-color: #38C7C0;
     display: flex;
     justify-content: end;
-    align-items: center;
     padding-right: 5px;
     margin-top: 5px;    
     box-sizing: border-box;
