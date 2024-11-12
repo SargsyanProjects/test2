@@ -858,8 +858,7 @@ svg {
 
 .bar-container{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: baseline;
     align-items: baseline;  
     height: 100%;
     width: 100%;
@@ -896,4 +895,13 @@ svg {
  h3{
     margin: 0;
     padding: 0;
+}
+
+.bar-name{
+    min-width: 120px;
+    max-width: 120px;
+}
+
+.bar-name{
+    text-align: left;
 }
