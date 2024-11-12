@@ -272,20 +272,23 @@
             { label: "Endocrinology", value: 7, color: "#636363" },
             { label: "Cardiovascular", value: 8, color: "#A0460E" }
         ];
-
+    
         // Function to calculate the width, height, and radius dynamically
         function getDimensions() {
             const width = Math.min(window.innerWidth, 400);
-            const height = Math.max(Math.min(window.innerHeight, 200), 400); // Ensure a minimum height of 400px
+            const height = Math.max(Math.min(window.innerHeight, 400), Math.min(300, window.innerHeight));
             const margin = 20;
-
-            const radius = Math.min(width, height) / 2 - margin;
-            const innerRadius = radius * 0.9 * (width / 1200);
-            return { width, height, radius, innerRadius };
+    
+            // Adjust radius and inner radius for smaller screens
+            const isSmallScreen = width < 350;
+            const radius = (isSmallScreen ? width : Math.min(width, height)) / 2 - margin;
+            const innerRadius = radius * (isSmallScreen ? 0.7 : 0.9) * (width / 1200);
+    
+            return { width, height, radius, innerRadius, isSmallScreen };
         }
-
-        const { width, height, radius, innerRadius } = getDimensions();
-
+    
+        const { width, height, radius, innerRadius, isSmallScreen } = getDimensions();
+    
         const svg = d3.select("#piechart")
             .append("svg")
             .attr("viewBox", `0 0 ${width} ${height}`)
@@ -293,19 +296,19 @@
             .style("min-height", "200px") // Minimum height set to 400px
             .append("g")
             .attr("transform", `translate(${width / 2}, ${height / 2})`);
-
+    
         const pie = d3.pie()
             .value(d => d.value)
             .sort(null);
-
+    
         const arc = d3.arc()
             .innerRadius(innerRadius)
             .outerRadius(radius);
-
+    
         const labelArc = d3.arc()
-            .innerRadius(radius * 0.2)
+            .innerRadius(radius * 0.3)
             .outerRadius(radius);
-
+    
         const paths = svg.selectAll("path")
             .data(pie(data))
             .enter()
@@ -314,7 +317,7 @@
             .attr("fill", d => d.data.color)
             .style("stroke", "#38C7C0")
             .style("stroke-width", "1px");
-
+    
         const labels = svg.selectAll("text")
             .data(pie(data))
             .enter()
@@ -328,11 +331,11 @@
             })
             .attr("dy", "0.35em")
             .attr("class", "label")
-            .style("font-size", "14px")
+            .style("font-size", isSmallScreen ? "10px" : "14px")
             .style("fill", "white")
             .text(d => d.data.label)
             .style("opacity", 0);
-
+    
         const percentageText = svg.append("text")
             .attr("class", "percentage")
             .attr("transform", "translate(-14, 6)")
@@ -340,15 +343,15 @@
             .text("")
             .style("fill", "white")
             .style("font-size", "18px");
-
+    
         paths.transition()
             .duration(1000)
             .attr("d", arc);
-
+    
         labels.transition()
             .duration(1500)
             .style("opacity", 1);
-
+    
         paths.on("mouseover", function (event, d) {
             d3.select(this)
                 .transition()
@@ -357,65 +360,64 @@
                     .innerRadius(innerRadius)
                     .outerRadius(radius + 10)
                 );
-
+    
             const label = d3.select(`#label-${d.data.label}`);
             label.transition()
                 .duration(200)
-                .style("font-size", "16px")
+                .style("font-size", isSmallScreen ? "12px" : "16px")
                 .attr("transform", function (d) {
                     const [x, y] = labelArc.centroid(d);
                     const rotation = calculateLabelRotation(d);
                     const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
                     return `translate(${x}, ${y - 5}) rotate(${rotation + flip})`;
                 });
-
+    
             const percentage = Math.round((d.data.value / d3.sum(data, d => d.value)) * 100);
             percentageText.text(`${percentage}%`)
                 .style("opacity", 1);
         })
-            .on("mouseout", function (event, d) {
-                d3.select(this)
-                    .transition()
-                    .duration(200)
-                    .attr("d", arc);
-
-                const label = d3.select(`#label-${d.data.label}`);
-                label.transition()
-                    .duration(200)
-                    .style("font-size", "14px")
-                    .attr("transform", function (d) {
-                        const [x, y] = labelArc.centroid(d);
-                        const rotation = calculateLabelRotation(d);
-                        const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
-                        return `translate(${x}, ${y}) rotate(${rotation + flip})`;
-                    });
-
-                percentageText.style("opacity", 0);
-            });
-
+        .on("mouseout", function (event, d) {
+            d3.select(this)
+                .transition()
+                .duration(200)
+                .attr("d", arc);
+    
+            const label = d3.select(`#label-${d.data.label}`);
+            label.transition()
+                .duration(200)
+                .style("font-size", isSmallScreen ? "10px" : "14px")
+                .attr("transform", function (d) {
+                    const [x, y] = labelArc.centroid(d);
+                    const rotation = calculateLabelRotation(d);
+                    const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
+                    return `translate(${x}, ${y}) rotate(${rotation + flip})`;
+                });
+    
+            percentageText.style("opacity", 0);
+        });
+    
         function calculateLabelRotation(d) {
             const angle = (d.startAngle + d.endAngle) / 2;
             return (angle * 180 / Math.PI - 90);
         }
-
+    
         window.addEventListener('resize', () => {
-            const { width, height, radius, innerRadius } = getDimensions();
-
+            const { width, height, radius, innerRadius, isSmallScreen } = getDimensions();
+    
             svg.attr("viewBox", `0 0 ${width} ${height}`);
-
             arc.innerRadius(innerRadius).outerRadius(radius);
-
+    
             paths.attr("d", arc);
-
+    
             labels.attr("transform", function (d) {
                 const [x, y] = labelArc.centroid(d);
                 const rotation = calculateLabelRotation(d);
                 const flip = (rotation > 90 || rotation < -90) ? 180 : 0;
                 return `translate(${x}, ${y}) rotate(${rotation + flip})`;
-            });
+            }).style("font-size", isSmallScreen ? "10px" : "14px");
         });
     </script>
-
+    
 
 
     <script src="../srcipt.js"></script>
