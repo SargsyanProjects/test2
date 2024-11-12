@@ -282,7 +282,7 @@
             // Adjust radius and inner radius for smaller screens
             const isSmallScreen = width < 350;
             const radius = (isSmallScreen ? width : Math.min(width, height)) / 2 - margin;
-            const innerRadius = radius * (isSmallScreen ? 0.7 : 0.9) * (width / 1200);
+            const innerRadius = radius * (isSmallScreen ? 0.7 : 0.6) * (width / 1200);
     
             return { width, height, radius, innerRadius, isSmallScreen };
         }
@@ -293,7 +293,7 @@
             .append("svg")
             .attr("viewBox", `0 0 ${width} ${height}`)
             .attr("preserveAspectRatio", "xMidYMid meet")
-            .style("min-height", "200px") // Minimum height set to 400px
+            .style("min-height", "400px") // Minimum height set to 400px
             .append("g")
             .attr("transform", `translate(${width / 2}, ${height / 2})`);
     
