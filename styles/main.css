@@ -524,7 +524,7 @@ body {
     background-color: #051D38;
     height: 100%;
     margin: 40px 5%;
-    padding: 0;
+    padding: 10px;
     border-radius: 20px;
     color: white;
 }
@@ -536,7 +536,7 @@ body {
     padding: 10px;
     border-radius: 20px;
     max-width: 800px;
-    bordeR: 1px solid #38C7C0
+    border: 1px solid #38C7C0
 }
 
 .expertise-item h3{
@@ -571,6 +571,7 @@ body {
 
 .expertise-item-text{
     grid-area: text;
+    height: 100%;
 }
 
 
