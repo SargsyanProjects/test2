@@ -666,7 +666,7 @@ body {
     align-items: baseline;
     grid-area: logo;
     justify-content: center;
-    max-width: 100px;
+    max-width: 150px;
     padding: 0px;
     margin: 0px 10px;
 }
