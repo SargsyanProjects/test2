@@ -602,6 +602,7 @@ body {
 
 .footer{
     margin: 40px 5%;
+    padding: 10px;
     border-radius: 20px;
     height: 100%;
     display: grid;
@@ -616,7 +617,7 @@ body {
     justify-content: center;
     align-items: start;
     padding: 10px;
-    margin: 40px 10px;;
+    margin: 0px 10px;;
     color:#38C7C0;
 }
 
@@ -634,7 +635,7 @@ body {
 .address{
     grid-area: address;
     padding: 10px;
-    margin: 40px 10px;
+    margin: 0px 10px;
     max-width: 100px;
     color:#38C7C0;
 }
@@ -645,7 +646,7 @@ body {
 .telephone{
     grid-area: telephone;
     padding: 10px;
-    margin: 40px 10px;
+    margin: 0px 10px;
     max-width: 150px;
     color:#38C7C0;
 }
@@ -666,7 +667,7 @@ body {
     grid-area: logo;
     max-width: 150px;
     padding: 0px;
-    margin: 40px 10px;
+    margin: 0px 10px;
 }
 
 .logo img{
