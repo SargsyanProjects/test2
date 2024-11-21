@@ -206,7 +206,6 @@ body {
 }
 
 .header-video {
-    background-color:#10182A;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -217,28 +216,16 @@ body {
     min-height: 400px;
     max-height: 600px;
     width: 100%;
+    top: 0;
     box-sizing: border-box;
 }
 
 .header-video-play {
-    position: relative;
     width: 100%;
     min-height: 400px;
     max-height: 600px;
     object-fit: cover;
-    z-index: 0;
     box-sizing: border-box;
-}
-.header-video-play::after{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #10182A;  /* Semi-transparent overlay color */
-    z-index: 2;               /* Places ::after above the content */
-    pointer-events: none;  
 }
 
 
@@ -601,10 +588,9 @@ body {
 
 .footer{
     margin: 40px 5%;
-    border-radius: 20px;
     padding: 10px;
+    border-radius: 20px;
     height: 100%;
-    width: 100%;
     display: grid;
     grid-template-areas: "sitemap address telephone logo"
                          "sitemap address telephone logo";
@@ -665,7 +651,6 @@ body {
     display: flex;
     align-items: baseline;
     grid-area: logo;
-    justify-content: center;
     max-width: 150px;
     padding: 0px;
     margin: 0px 10px;
@@ -673,8 +658,10 @@ body {
 
 .logo img{
     width: 100%;
+    margin: 5px;
     
 }
+
 
 
 @media (max-width: 776px){

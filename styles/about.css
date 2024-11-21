@@ -221,7 +221,6 @@ body {
     max-height: 600px;
     object-fit: cover;
     box-sizing: border-box;
-    opacity: 50%;
 }
 
 .header-contents {
