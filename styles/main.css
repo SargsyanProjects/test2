@@ -684,7 +684,14 @@ a{
     text-decoration: none;
 }
 
-.telephone{
+.telephone a{
     text-decoration: none;
-    color:#38C7C0
+    color:#38C7C0;
+    font-size: 12px;
+}
+
+a[href^=tel]{
+    text-decoration: none;
+    pointer-events: none;
+    color: inherit;
 }
